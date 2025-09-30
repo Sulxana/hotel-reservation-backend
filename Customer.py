@@ -31,6 +31,6 @@ class Customer:
 
     def show_booking_summary(self):
         for x in self.booked_rooms:
-            print(f"ოთახი N:{x.room_number} - {x.price_per_night}₾")
+            print(f"{self.name} დაჯავშნა ოთახი N:{x.room_number} - {x.price_per_night}₾(დღე)")
 
 
