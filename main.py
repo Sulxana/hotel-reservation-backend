@@ -1,6 +1,7 @@
 from Customer import Customer
 from Hotel import Hotel
 from Room import Room
+
 #შემყავს ხელით რამდენიმე ოთახი
 room_list = list()
 

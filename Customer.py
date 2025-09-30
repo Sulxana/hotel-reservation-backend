@@ -1,5 +1,5 @@
 from Room import Room
-
+import pytest
 class Customer:
     def __init__(self,name:str, budget:float, score = 0):
         self.name = name
@@ -51,4 +51,3 @@ class Customer:
             line = f"{self.name} დაჯავშნა ოთახი N:{room.room_number} - {room.price_per_night}₾(დღე), {day} დღით"
             summaries.append(line)  # სიაში დამატება
         return summaries
-
