@@ -1,8 +1,7 @@
 import logging
-from ctypes import c_wchar
-
 from Room import Room
 from Customer import Customer
+logging.basicConfig(filename='booking.log', level=logging.INFO, format='%(asctime)s - %(message)s',encoding="UTF-8")
 
 class Hotel:
     def __init__(self,name:str,rooms:list):
@@ -11,18 +10,17 @@ class Hotel:
         self.booking_log = list()
     def show_available_rooms(self, r_type: str = None):
         result = list()
-        istrue = True
-
         for x in self.rooms:
             if x.room_type ==r_type and x.is_available == True:
                 result.append(x)
-                print(x)
 
-        if len(result) == 0:
+        if not result:
             print(f"სამწუხაროდ {r_type} ოთახები ყველა დაჯავშნილია")
-            istrue = False
+        else:
+            for room in result:
+                print(room)
 
-        return  istrue
+        return  result
 
     def book_room_for_customer(self, customer: Customer, room_number: int, nights):
         for x in self.rooms:
@@ -36,8 +34,11 @@ class Hotel:
                 total = x.calculate_price(nights)
                 return total
         return 0
-    def log_booking(self, customer: Customer, rooms: Room):
-        logging.info(customer.show_booking_summary())
+
+    def log_booking(self, customer: Customer):
+        summary = customer.show_booking_summary()
+        for s in summary:
+            logging.info(f"{s}")
 
     def cancel_booking(self, customer: Customer, room_number: int):
         for x in self.rooms:
