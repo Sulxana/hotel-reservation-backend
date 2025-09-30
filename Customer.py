@@ -6,11 +6,15 @@ class Customer:
         self.budget = budget
         self.booked_rooms = []
 
-    def add_room(self, rooms:Room):
+    def add_room(self, rooms:Room, nights):
         if not rooms in self.booked_rooms:
-            self.booked_rooms.append(rooms)
-            rooms.is_available = False
-            print(f"{self.name} - დაჯავშნა ოთახიN:{rooms.room_number}")
+            if self.pay_for_booking(rooms.calculate_price(nights)):
+                self.booked_rooms.append(rooms)
+                rooms.is_available = False
+                print(f"{self.name} - დაჯავშნა ოთახიN:{rooms.room_number}. მიმდინარე ბალანსი - {self.budget}")
+            else:
+                print(f"{self.name} - ვერ დაჯავშნა ოთახიN:{rooms.room_number}"
+                      f" არასაკმარისი ბალანსის გამო. მიმდინარე ბალანსი - {self.budget}")
         else:
             print(f"{self.name} - ვერ დაჯავშნა ოთახიN:{rooms.room_number}, რადგან უკვე დაჯავშნილი იყო")
 
@@ -25,9 +29,9 @@ class Customer:
     def pay_for_booking(self,total_price:float):
         if self.budget > total_price:
             self.budget -= total_price
-            print(f"{self.name} paid {total_price}. Remaining budget: {self.budget}")
+            return True
         else:
-            print(f"{self.name} does not have enough budget!")
+            return False
 
     def show_booking_summary(self):
         for x in self.booked_rooms:

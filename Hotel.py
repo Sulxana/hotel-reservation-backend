@@ -5,20 +5,29 @@ from Room import Room
 from Customer import Customer
 
 class Hotel:
-    def __init__(self,name:str,rooms:list,booking_log:list):
+    def __init__(self,name:str,rooms:list):
         self.name = name
         self.rooms = rooms
-        self.booking_log = booking_log
+        self.booking_log = list()
     def show_available_rooms(self, r_type: str = None):
+        result = list()
+        istrue = True
+
         for x in self.rooms:
             if x.room_type ==r_type and x.is_available == True:
+                result.append(x)
                 print(x)
 
+        if len(result) == 0:
+            print(f"სამწუხაროდ {r_type} ოთახები ყველა დაჯავშნილია")
+            istrue = False
+
+        return  istrue
 
     def book_room_for_customer(self, customer: Customer, room_number: int, nights):
         for x in self.rooms:
-            if x.room_number ==room_number:
-                customer.add_room(x)
+            if x.room_number == room_number:
+                customer.add_room(x,nights)
                 break
 
     def calculate_total_booking(self, room_number: int, nights: int):

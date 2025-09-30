@@ -19,8 +19,6 @@ class Room:
 
     def __str__(self):
         if self.is_available:
-            return (f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე,"
-                    f" რომლის ფასიც დღიურად შეადგენს {self.price_per_night} ლარს, ამ ეტაპზე თავისუფალია")
+            return f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე, ამ ეტაპზე თავისუფალია"
         else:
-            return (f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე,"
-                    f" რომლის ფასიც დღიურად შეადგენს {self.price_per_night} ლარს, ამ ეტაპზე დაკავებულია")
+            return f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე, ამ ეტაპზე დაკავებულია"
