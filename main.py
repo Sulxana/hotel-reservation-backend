@@ -3,13 +3,19 @@ from Hotel import Hotel
 from Room import Room
 #შემყავს ხელით რამდენიმე ოთახი
 room_list = list()
+
+#ფასები სეზონურად
+Single = 100 * Room.calculate_koeficienti()
+Double = 200 * Room.calculate_koeficienti()
+Family = 400 * Room.calculate_koeficienti()
+
 for i in range(10):
     if i<3:
-        r = Room(i+1, "Single", 100, True, 1)
+        r = Room(i+1, "Single", Single, True, 1)
     elif i<7:
-        r = Room(i+1, "Double", 200, True, 2)
+        r = Room(i+1, "Double", Double, True, 2)
     else:
-        r = Room(i+1, "Family", 400, True, 4)
+        r = Room(i+1, "Family", Family, True, 4)
     room_list.append(r)
 
 # HOTEL and CUSTOMER
@@ -46,3 +52,4 @@ while True:
 booking_summary = giorgi.show_booking_summary()
 for s in booking_summary:
     print(s)
+

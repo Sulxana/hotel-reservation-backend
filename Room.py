@@ -1,3 +1,4 @@
+from datetime import datetime
 class Room:
     def __init__(self,r_number:int,r_type:str,price_per_night:float,is_available:bool,max_guests:int):
             self.room_number = r_number
@@ -14,11 +15,23 @@ class Room:
         self.is_available = True
         print(f"თქვენ გამოხვედით {self.room_number} ოთახიდან ")
 
+    @staticmethod
+    def calculate_koeficienti():
+        month = datetime.today().month
+        match month:
+            case 1 | 2 | 3 | 4 | 5:
+                mult = 2
+            case 6 | 7 | 8 | 9:
+                mult = 3
+            case _:
+                mult = 1
+        return mult
     def calculate_price(self,nights:int):
-        return self.price_per_night * nights
+        mult = Room.calculate_koeficienti()
+        return self.price_per_night * nights * mult
 
     def __str__(self):
         if self.is_available:
-            return f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე, ამ ეტაპზე თავისუფალია"
+            return f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე, ამ ეტაპზე თავისუფალია და მისი ფასია {self.price_per_night}"
         else:
             return f"ოთახიN:{self.room_number}, {self.max_guests} სტუმარზე, ამ ეტაპზე დაკავებულია"
