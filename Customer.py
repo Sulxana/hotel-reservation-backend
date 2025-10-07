@@ -7,9 +7,10 @@ class Customer:
         self.booked_rooms = []
         self.__score = score
     def add_room(self, rooms:Room, nights):
+        total_price = rooms.calculate_price(nights)
         if not rooms in self.booked_rooms:
-            if self.pay_for_booking(rooms.calculate_price(nights)):
-                self.booked_rooms.append((rooms, nights))
+            if self.pay_for_booking(total_price):
+                self.booked_rooms.append((rooms, nights,total_price))
                 rooms.is_available = False
 
                 if rooms.room_type == "Single":
@@ -19,7 +20,7 @@ class Customer:
                 else:
                     self.__score += 250
 
-                print(f"{self.name} - დაჯავშნა ოთახიN:{rooms.room_number}. მიმდინარე ბალანსი - {self.budget}")
+                print(f"{self.name} - დაჯავშნა ოთახიN:{rooms.room_number}. მიმდინარე ბალანსი - {self.budget} ლარი")
                 print(f"შენ გაქვს დაგროვებული: {self.__score} ქულა.")
 
             else:
@@ -29,9 +30,10 @@ class Customer:
             print(f"{self.name} - ვერ დაჯავშნა ოთახიN:{rooms.room_number}, რადგან უკვე დაჯავშნილი იყო")
 
     def remove_room(self,rooms:Room):
-        for r, nights in self.booked_rooms:
+        for r, nights,price in self.booked_rooms:
             if r is rooms or r.room_number == rooms.room_number:
-                self.booked_rooms.remove((r, nights))
+                self.budget += price
+                self.booked_rooms.remove((r, nights,price))
                 r.is_available = True
                 print(f"{self.name} - გააუქმა ოთახიN:{r.room_number}-ის ჯავშანი")
                 return
@@ -47,7 +49,8 @@ class Customer:
 
     def show_booking_summary(self):
         summaries = []
-        for room, day in self.booked_rooms:
-            line = f"{self.name} დაჯავშნა ოთახი N:{room.room_number} - {room.price_per_night}₾(დღე), {day} დღით"
+        for room, day,price in self.booked_rooms:
+            line = (f"{self.name} დაჯავშნა ოთახი N:{room.room_number}"
+                    f" - {room.price_per_night}₾(დღე), {day} დღით. სულ გადაიხადა {price}₾")
             summaries.append(line)  # სიაში დამატება
         return summaries

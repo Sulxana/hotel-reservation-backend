@@ -43,7 +43,7 @@ while True:
 
     q1 = input("გსურთ ჯავშნის გაუქმება? ( კი / არა ) ")
     if q1 == "კი":
-        for room,nights in giorgi.booked_rooms:
+        for room,nights,price in giorgi.booked_rooms:
             print(f"{room.room_number} - {room.room_type}")
         q3 = int(input("რომლის გაუქმება გსურთ?(ოთახის ნომერი) "))
         hotel.cancel_booking(giorgi,q3)
