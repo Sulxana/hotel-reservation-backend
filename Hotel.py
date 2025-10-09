@@ -1,17 +1,19 @@
 import logging
-from Room import Room
 from Customer import Customer
-logging.basicConfig(filename='booking.log', level=logging.INFO, format='%(asctime)s - %(message)s',encoding="UTF-8")
+
+logging.basicConfig(filename='booking.log', level=logging.INFO, format='%(asctime)s - %(message)s', encoding="UTF-8")
+
 
 class Hotel:
-    def __init__(self,name:str,rooms:list):
+    def __init__(self, name: str, rooms: list):
         self.name = name
         self.rooms = rooms
         self.booking_log = list()
+
     def show_available_rooms(self, r_type: str = None):
         result = list()
         for x in self.rooms:
-            if x.room_type ==r_type and x.is_available == True:
+            if x.room_type == r_type and x.is_available == True:
                 result.append(x)
 
         if not result:
@@ -20,12 +22,12 @@ class Hotel:
             for room in result:
                 print(room)
 
-        return  result
+        return result
 
     def book_room_for_customer(self, customer: Customer, room_number: int, nights):
         for x in self.rooms:
             if x.room_number == room_number:
-                customer.add_room(x,nights)
+                customer.add_room(x, nights)
                 break
 
     def calculate_total_booking(self, room_number: int, nights: int):
@@ -45,7 +47,3 @@ class Hotel:
             if x.room_number == room_number:
                 customer.remove_room(x)
                 break
-
-
-
-

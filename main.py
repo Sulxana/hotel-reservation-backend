@@ -11,17 +11,17 @@ Double = 200 * Room.calculate_koeficienti()
 Family = 400 * Room.calculate_koeficienti()
 
 for i in range(10):
-    if i<3:
-        r = Room(i+1, "Single", Single, True, 1)
-    elif i<7:
-        r = Room(i+1, "Double", Double, True, 2)
+    if i < 3:
+        r = Room(i + 1, "Single", Single, True, 1)
+    elif i < 7:
+        r = Room(i + 1, "Double", Double, True, 2)
     else:
-        r = Room(i+1, "Family", Family, True, 4)
+        r = Room(i + 1, "Family", Family, True, 4)
     room_list.append(r)
 
 # HOTEL and CUSTOMER
-hotel = Hotel("Amazon",room_list)
-giorgi = Customer("giorgi",3000)
+hotel = Hotel("Amazon", room_list)
+giorgi = Customer("giorgi", 3000)
 
 print("მოგესალმებით სასტუმროში.")
 while True:
@@ -38,19 +38,18 @@ while True:
 
     r_number = int(input("აირჩიეთ სასურველი ოთახის ნომერი: "))
 
-    hotel.book_room_for_customer(giorgi,r_number,days)
+    hotel.book_room_for_customer(giorgi, r_number, days)
     hotel.log_booking(giorgi)
 
     q1 = input("გსურთ ჯავშნის გაუქმება? ( კი / არა ) ")
     if q1 == "კი":
-        for room,nights,price in giorgi.booked_rooms:
+        for room, nights, price in giorgi.booked_rooms:
             print(f"{room.room_number} - {room.room_type}")
         q3 = int(input("რომლის გაუქმება გსურთ?(ოთახის ნომერი) "))
-        hotel.cancel_booking(giorgi,q3)
+        hotel.cancel_booking(giorgi, q3)
 
     print("=========================================================\n")
 
 booking_summary = giorgi.show_booking_summary()
 for s in booking_summary:
     print(s)
-

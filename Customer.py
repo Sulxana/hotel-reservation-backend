@@ -1,16 +1,17 @@
 from Room import Room
-import pytest
+
 class Customer:
-    def __init__(self,name:str, budget:float, score = 0):
+    def __init__(self, name: str, budget: float, score=0):
         self.name = name
         self.budget = budget
         self.booked_rooms = []
         self.__score = score
-    def add_room(self, rooms:Room, nights):
+
+    def add_room(self, rooms: Room, nights):
         total_price = rooms.calculate_price(nights)
         if not rooms in self.booked_rooms:
             if self.pay_for_booking(total_price):
-                self.booked_rooms.append((rooms, nights,total_price))
+                self.booked_rooms.append((rooms, nights, total_price))
                 rooms.is_available = False
 
                 if rooms.room_type == "Single":
@@ -29,18 +30,18 @@ class Customer:
         else:
             print(f"{self.name} - ვერ დაჯავშნა ოთახიN:{rooms.room_number}, რადგან უკვე დაჯავშნილი იყო")
 
-    def remove_room(self,rooms:Room):
-        for r, nights,price in self.booked_rooms:
+    def remove_room(self, rooms: Room):
+        for r, nights, price in self.booked_rooms:
             if r is rooms or r.room_number == rooms.room_number:
                 self.budget += price
-                self.booked_rooms.remove((r, nights,price))
+                self.booked_rooms.remove((r, nights, price))
                 r.is_available = True
                 print(f"{self.name} - გააუქმა ოთახიN:{r.room_number}-ის ჯავშანი")
                 return
         else:
             print(f"{self.name} - ვერ გააუქმა ოთახიN:{rooms.room_number}-ის ჯავშანი, რადგან არ ყოფილა დაჯავშნილი")
 
-    def pay_for_booking(self,total_price:float):
+    def pay_for_booking(self, total_price: float):
         if self.budget >= total_price:
             self.budget -= total_price
             return True
@@ -49,7 +50,7 @@ class Customer:
 
     def show_booking_summary(self):
         summaries = []
-        for room, day,price in self.booked_rooms:
+        for room, day, price in self.booked_rooms:
             line = (f"{self.name} დაჯავშნა ოთახი N:{room.room_number}"
                     f" - {room.price_per_night}₾(დღე), {day} დღით. სულ გადაიხადა {price}₾")
             summaries.append(line)  # სიაში დამატება
